@@ -20,20 +20,20 @@
       }
     },
     {
-      "calculate": "datum.Cases / datum.Population * 100000", "as": "Cases per 100k"
+      "calculate": "datum.Cases / datum.Population * 100000", "as": "Cases per 100k Population"
     }
   ],
   "mark": {"type": "geoshape"},
   "encoding": {
     "color": {
-      "field": "Cases per 100k",
+      "field": "Cases per 100k Population",
       "type": "quantitative",
       "scale": {"type": "log"}
     },
     "tooltip": [
       {"field": "properties.Name", "type": "nominal", "title": "State"},
       {"field": "Cases", "type": "quantitative"},
-      {"field": "Cases per 100k", "type": "quantitative", "format": ".1f"}
+      {"field": "Cases per 100k Population", "type": "quantitative", "format": ".1f"}
     ]
   }
 }
