@@ -3,37 +3,50 @@
   "title": "Drug Addiction Rate per 100k Population by State in Malaysia (2020)",
   "width": 800,
   "height": 400,
-  "projection": {"type": "equalEarth"},
-  "data": {
-    "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W9Homework/malaysia_states.topojson",
-    "format": {"type": "topojson", "feature": "states"}
-  },
-  "transform": [
+  "projection": {"type": "mercator", "center": [108, 4],
+    "scale": 2600},
+  "layer": [
     {
-      "lookup": "properties.Name",
-      "from": {
-        "data": {
-          "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W9Homework/number_addicts_by_state.csv"
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "fill": "#d6eaf2"}
+    },
+    {
+      "data": {"graticule": {"step": [10, 10]}},
+      "mark": {"type": "geoshape", "stroke": "#bfcad0"}
+    },
+    {
+      "data": {
+      "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W9Homework/malaysia_states.topojson",
+      "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.Name",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W9Homework/number_addicts_by_state.csv"
+            },
+            "key": "Name",
+            "fields": ["Cases", "Population"]
+          }
         },
-        "key": "Name",
-        "fields": ["Cases", "Population"]
+        {
+          "calculate": "datum.Cases / datum.Population * 100000", "as": "Cases per 100k Population"
+        }
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "Cases per 100k Population",
+          "type": "quantitative",
+          "scale": {"type": "log", "scheme": "orangered"}
+        },
+        "tooltip": [
+          {"field": "properties.Name", "type": "nominal", "title": "State"},
+          {"field": "Cases", "type": "quantitative"},
+          {"field": "Cases per 100k Population", "type": "quantitative", "format": ".1f", "title": "Drug Addiction Cases per 100k Population"}
+        ]
       }
-    },
-    {
-      "calculate": "datum.Cases / datum.Population * 100000", "as": "Cases per 100k Population"
     }
-  ],
-  "mark": {"type": "geoshape"},
-  "encoding": {
-    "color": {
-      "field": "Cases per 100k Population",
-      "type": "quantitative",
-      "scale": {"type": "log"}
-    },
-    "tooltip": [
-      {"field": "properties.Name", "type": "nominal", "title": "State"},
-      {"field": "Cases", "type": "quantitative"},
-      {"field": "Cases per 100k Population", "type": "quantitative", "format": ".1f"}
-    ]
-  }
+  ]
 }
