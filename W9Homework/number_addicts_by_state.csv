@@ -1,18 +1,17 @@
-Name,Population,Cases
-Johor,"4,009,670",2564
-Kedah,"2,131,427",2372
-Kelantan,"1,792,501",2271
-Kuala Lumpur,"1,982,112",1024
-Labuan,"95,120",90
-Melaka,"998,428",829
-Negeri Sembilan,"1,199,974",812
-Pahang,"1,591,295",1395
-Perak,"2,496,041",1821
-Perlis,"284,885",281
-Penang,"1,740,405",1727
-Putrajaya,"109,202",37
-Sabah,"3,418,785",834
-Sarawak,"2,453,677",634
-Selangor,"6,994,423",1712
-Terengganu,"1,149,440",2240
-
+﻿State Name,Population,Cases
+Johor,4009670,2564
+Kedah,2131427,2372
+Kelantan,1792501,2271
+Kuala Lumpur,1982112,1024
+Labuan,95120,90
+Melaka,998428,829
+Negeri Sembilan,1199974,812
+Pahang,1591295,1395
+Perak,2496041,1821
+Perlis,284885,281
+Penang,1740405,1727
+Putrajaya,109202,37
+Sabah,3418785,834
+Sarawak,2453677,634
+Selangor,6994423,1712
+Terengganu,1149440,2240
