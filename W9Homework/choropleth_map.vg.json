@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Drug addicts per 100k by state in Malaysia",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "equalEarth"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/yrlie/3179/W9Homework/main/malaysia_states.topojson",
+    "format": {"type": "topojson", "feature": "states"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.Name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/yrlie/3179/W9Homework/main/number_addicts_by_state.csv"
+        },
+        "key": "State_Name",
+        "fields": ["Cases", "Population"]
+      }
+    },
+    {"calculate": "datum.cases / datum.population * 100000", "as": "Rate per 100k"}
+  ],
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "field": "Rate per 100k",
+      "type": "quantitative",
+      "scale": {"type": "log"}
+    },
+    "tooltip": [
+      {"field": "properties.Name", "type": "nominal", "title": "State"},
+      {"field": "Cases", "type": "quantitative"},
+      {"field": "Rate per 100k", "type": "quantitative", "format": ".1f"}
+    ]
+  }
+}
