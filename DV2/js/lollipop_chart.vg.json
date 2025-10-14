@@ -66,8 +66,8 @@
     "x": {
       "field": "Education",
       "type": "ordinal",
-      "axis": {"tickCount": 6}, 
-      "scale": {"domain": [0, 100]}
+      "axis": {"tickCount": 4}, 
+      "scale": {"type": "linear", "domain": [0, 40]}
     }
   },
   "layer": [
