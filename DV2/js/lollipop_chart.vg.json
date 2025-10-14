@@ -57,13 +57,26 @@
       "calculate": "round(datum.Percentage * 100) / 100", "as": "pct_round" 
     }
   ],
+  "encoding": {
+    "y": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "axis": {"labelAngle": -25}
+    },
+    "x": {
+      "field": "Education",
+      "type": "ordinal",
+      "axis": {"tickCount": 6}, 
+      "scale": {"domain": [0, 100]}
+    }
+  },
   "layer": [
     {
         "mark": { "type": "rule", "strokeWidth": 2 },
         "encoding": {
           "x": { "field": "Percentage", "type": "quantitative", "axis": {"title":"% of Year's Total", "format":".2f"} },
           "x2": { "value": 0 },
-          "y": { "field": "Education", "type": "ordinal", "sort": "-x", "axis": {"title": null} },
+          "y": { "field": "Education", "type": "ordinal", "sort": "-x", "axis": {"title": "Education Level"} },
           "tooltip": [
             {
               "field":"Education",
