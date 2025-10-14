@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": "Abusers by Education Level (2016-2020)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_education.csv"
+  },
+  "params": [
+    {
+      "name": "Year_Selection",
+      "value": "2020",
+      "bind": {
+        "input": "select",
+        "options": [
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "labels": [
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "transform": [
+    { "filter": "datum.Education != 'Total'" },
+    {
+      "fold": ["2016","2017","2018","2019","2020"],
+      "as": ["Year","Value"]
+    },
+    {
+      "calculate": "toNumber(datum.Value)",
+      "as": "ValueNum"
+    },
+    {
+      "joinaggregate": [
+        { "op": "sum", "field": "ValueNum", "as": "YearTotal" }
+      ],
+      "groupby": ["Year"]
+    },
+    {
+      "calculate": "datum.ValueNum / datum.YearTotal * 100",
+      "as": "Percentage"
+    },
+    {
+      "filter": "Year_Selection == 'All' || datum.Year == Year_Selection"
+    },
+    { 
+      "calculate": "round(datum.Percentage * 100) / 100", "as": "pct_round" 
+    }
+  ],
+  "layer": [
+    {
+        "mark": { "type": "rule", "strokeWidth": 2 },
+        "encoding": {
+          "x": { "field": "Percentage", "type": "quantitative", "axis": {"title":"% of Year's Total", "format":".2f"} },
+          "x2": { "value": 0 },
+          "y": { "field": "Education", "type": "ordinal", "sort": "-x", "axis": {"title": null} },
+          "tooltip": [
+            {
+              "field":"Education",
+              "type":"nominal",
+              "title":"Education"
+            },
+            {
+              "field":"ValueNum",
+              "type":"quantitative",
+              "title":"Count",
+              "format":","},
+            {
+              "field":"pct_round",
+              "type":"quantitative",
+              "title":"% of Year",
+              "format":".2f"}
+          ]
+        }
+      },
+      {
+        "mark": { "type": "point", "filled": true, "size": 120 },
+        "encoding": {
+          "x": { "field": "Percentage", "type": "quantitative" },
+          "y": { "field": "Education", "type": "ordinal", "sort": "-x" },
+          "color": { "value": "#d62728" }  
+        }
+      },
+      {
+        "mark": { "type": "text", "align": "left", "dx": 6, "fontSize": 11 },
+        "encoding": {
+          "x": { "field": "Percentage", "type": "quantitative" },
+          "y": { "field": "Education", "type": "ordinal", "sort": "-x" },
+          "text": { "field": "pct_round", "type": "quantitative", "format": ".2f" },
+          "opacity": {"value": 0.9}
+        }
+      }
+    ]
+}

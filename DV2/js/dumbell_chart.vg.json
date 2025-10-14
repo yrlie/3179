@@ -1,0 +1,73 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 450,
+  "title": "Change in Abusers by Drug Type (2016 → 2020)",
+  "data": {
+    "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_type.csv"
+  },
+  "params": [
+    {
+      "name": "Year_Selection",
+      "value": "2020",
+      "bind": {
+        "input": "select",
+        "options": [
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "labels": [
+          "2016",
+          "2017",
+          "2018",
+          "2019",
+          "2020"
+        ],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "transform": [
+    { "filter": "datum['Type of Drugs'] != 'Total'" }
+
+  ],
+  "layer": [
+    {
+        "mark": { "type": "rule", "cornerRadius": 2, "opacity": 0.9, "strokeWidth": 3 },
+        "encoding": {
+          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null, "axis": {"title": null} },
+          "x": { "field": "2016", "type": "quantitative", "axis": {"title":"Count"} },
+          "x2": { "field": "2020" },
+          "color": { "value": "#1f77b4" }, 
+          "tooltip": [
+            {"field":"Type of Drugs","type":"nominal","title":"Drug"},
+            {"field":"2016","type":"quantitative","title":"2016","format":","},
+            {"field":"2020","type":"quantitative","title":"2020","format":","}
+          ]
+        }
+      },
+      {
+        "mark": { "type": "point", "filled": true, "size": 90 },
+        "encoding": {
+          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null },
+          "x": { "field": "2016", "type": "quantitative" },
+          "shape": { "value": "circle" },
+          "color": { "value": "#1f77b4" },
+          "tooltip": null
+        }
+      },
+      {
+        "mark": { "type": "point", "filled": true, "size": 90 },
+        "encoding": {
+          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null },
+          "x": { "field": "2020", "type": "quantitative" },
+          "shape": { "value": "square" },
+          "color": { "value": "#ff7f0e" }, 
+          "tooltip": null
+        }
+      }
+    ]
+}

@@ -16,7 +16,7 @@
     },
     {
       "data": {
-      "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W10Homework/js/malaysia_states.topojson",
+      "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/DV2/js/malaysia_states.topojson",
       "format": {"type": "topojson", "feature": "states"}
       },
       "transform": [
@@ -24,7 +24,7 @@
           "lookup": "properties.Name",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/W10Homework/data/number_addicts_by_state.csv"
+              "url": "https://raw.githubusercontent.com/yrlie/3179/refs/heads/main/DV2/data/number_addicts_by_state.csv"
             },
             "key": "Name",
             "fields": ["Cases", "Population"]
