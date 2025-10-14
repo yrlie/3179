@@ -51,7 +51,7 @@
       "as": "Percentage"
     },
     {
-      "filter": "Year_Selection == 'All' || datum.Year == Year_Selection"
+      "filter": "datum.Year == Year_Selection"
     },
     { 
       "calculate": "round(datum.Percentage * 100) / 100", "as": "pct_round" 
