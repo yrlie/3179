@@ -2,8 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "width": 760,
   "height": 450,
-  "projection": {"type": "mercator", "center": [108, 4],
-    "scale": 2600},
+  "projection": {"type": "mercator", "center": [108.05, 4], "scale": 2550},
   "layer": [
     {
       "data": {"sphere": true},
@@ -31,8 +30,39 @@
         },
         {
           "calculate": "datum.Cases / datum.Population * 100000", "as": "Cases per 100k Population"
+        },
+        {
+          "calculate" : "geoCentroid(null, datum)",
+          "as" : "centroid"
+        },
+        {
+            "calculate" : "datum.centroid[0]",
+            "as" : "centroidx"
+        },
+        {
+            "calculate" : "datum.centroid[1]",
+            "as" : "centroidy"
         }
       ],
+      "selection": {
+        "state_select": {
+          "type": "single",
+          "fields": ["properties.Name"],
+          "bind": {
+            "input": "select",
+            "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Penang","Perak","Perlis","Sabah","Sarawak","Selangor","Terengganu","Kuala Lumpur","Labuan","Putrajaya"],
+            "name": "Select State: "
+          },
+          "empty": "none"
+        },
+        "hover": {
+          "type": "single",
+          "fields": ["properties.Name"],
+          "on": "mouseover",
+          "clear": "mouseout",
+          "empty": "none"
+        }
+      },
       "layer": [
         {
           "mark": {
@@ -41,7 +71,23 @@
             "strokeWidth": 0.4
           },
           "selection": {
-            "highlight": {"type": "single", "on": "mouseover", "empty": "none"}
+            "state_select": {
+              "type": "single",
+              "fields": ["properties.Name"],
+              "bind": {
+                "input": "select",
+                "options": ["Johor","Kedah","Kelantan","Melaka","Negeri Sembilan","Pahang","Penang","Perak","Perlis","Sabah","Sarawak","Selangor","Terengganu","Kuala Lumpur","Labuan","Putrajaya"],
+                "name": "Select State: "
+              },
+              "empty": "none"
+            },
+            "hover": {
+              "type": "single",
+              "fields": ["properties.Name"],
+              "on": "mouseover",
+              "clear": "mouseout",
+              "empty": "none"
+            }
           },
           "encoding": {
             "color": {
@@ -50,15 +96,24 @@
               "scale": {"type": "log", "scheme": "orangered"}
             },
             "strokeWidth": {
-              "condition": {"selection": "highlight", "value": 1},
+              "condition": [
+                {"selection": "hover", "value": 1},
+                {"selection": "state_select", "value": 1}
+              ],
               "value": 0.4
             },
             "stroke": {
-              "condition": {"selection": "highlight", "value": "black"},
+              "condition": [
+                {"selection": "hover", "value": "black"},
+                {"selection": "state_select", "value": "black"}
+              ],
               "value": "gray"
             },
             "opacity": {
-              "condition": {"selection": "highlight", "value": 1},
+              "condition": [
+                {"selection": "hover", "value": 1},
+                {"selection": "state_select", "value": 1}
+              ],
               "value": 0.7
             },
             "tooltip": [
@@ -67,6 +122,54 @@
               {"field": "Population", "type": "quantitative", "format": ","},
               {"field": "Cases per 100k Population", "type": "quantitative", "format": ".1f", "title": "Drug Addiction Cases per 100k Population"}
             ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "baseline": "middle",
+            "color": "black",
+            "align": "center",
+            "dx": -15
+          },
+          "encoding": {
+            "longitude": {"field": "centroidx", "type": "quantitative"},
+            "latitude": {"field": "centroidy", "type": "quantitative"},
+            "text": {"field": "properties.Name", "type": "nominal"},
+            "size": {
+              "condition": [
+                {"selection": "hover", "value": 13},
+                {"selection": "state_select", "value": 13}
+              ],
+              "value": 6.5
+            },
+            "tooltip": [
+              {
+                "condition": {"selection": "state_select"},
+                "field": "properties.Name",
+                "type": "nominal",
+                "title": "State"
+              },
+              {
+                "condition": {"selection": "state_select"},
+                "field": "Cases",
+                "type": "quantitative"
+              },
+              {
+                "condition": {"selection": "state_select"},
+                "field": "Population",
+                "type": "quantitative",
+                "format": ","
+              },
+              {
+                "condition": {"selection": "state_select"},
+                "field": "Cases per 100k Population",
+                "type": "quantitative",
+                "format": ".1f",
+                "title": "Drug Addiction Cases per 100k Population"
+              }
+            ]
+
           }
         }
       ]

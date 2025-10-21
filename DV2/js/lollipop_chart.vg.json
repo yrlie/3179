@@ -10,21 +10,10 @@
       "name": "Year_Selection",
       "value": "2020",
       "bind": {
-        "input": "select",
-        "options": [
-          "2016",
-          "2017",
-          "2018",
-          "2019",
-          "2020"
-        ],
-        "labels": [
-          "2016",
-          "2017",
-          "2018",
-          "2019",
-          "2020"
-        ],
+        "input": "range",
+        "min": 2016,
+        "max": 2020,
+        "step": 1,
         "name": "Select Year: "
       }
     }

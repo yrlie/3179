@@ -78,16 +78,24 @@
     var vg3 = "js/lollipop_chart.vg.json";
     var vg4 = "js/dumbell_chart.vg.json";
 
-    vegaEmbed('#choropleth_map', vg1).then(function(result) {
+    vegaEmbed('#choropleth_map', vg1, 
+      { "actions": false }
+    ).then(function(result) {
     }).catch(console.error);
 
-    vegaEmbed('#bar_chart', vg2).then(function(result) {
+    vegaEmbed('#bar_chart', vg2,
+      { "actions": false }
+    ).then(function(result) {
     }).catch(console.error);
 
-    vegaEmbed('#lollipop_chart', vg3).then(function(result) {
+    vegaEmbed('#lollipop_chart', vg3,
+      { "actions": false }
+    ).then(function(result) {
     }).catch(console.error);
 
-    vegaEmbed('#dumbell_chart', vg4).then(function(result) {
+    vegaEmbed('#dumbell_chart', vg4,
+      { "actions": false }
+    ).then(function(result) {
     }).catch(console.error);
 
   </script>

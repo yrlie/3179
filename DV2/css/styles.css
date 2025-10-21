@@ -59,6 +59,8 @@ body {
 .page {
   width: 1000px;
   padding: 40px 0px 80px 30px;
+  height: 100%;
+  margin: auto;
 }
 
 .dashboard-header {
@@ -95,4 +97,17 @@ body {
 .card:hover {
   box-shadow: 0 6px 14px rgba(0,0,0,0.08);
   transition: box-shadow 0.3s ease-in-out;
+}
+
+input[type=range] {
+  width: 100px; 
+  height: 8px; 
+}
+label {
+  font-size: 16px; 
+}
+
+input[type=select] {
+  width: 100px; 
+  height: 8px; 
 }
