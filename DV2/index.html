@@ -7,6 +7,9 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
   
   <!-- CSS file -->
+   <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
 
 
@@ -15,79 +18,55 @@
   <div class="page">
 
     <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <h1>Drug Addiction in Malaysia</h1>
-        <!-- <p>This page demonstrates how you can use pure.css grid for your layout.</p> -->
-      </div>
-    </div>
+    <header class="dashboard-header">
+      <h1>Drug Abuse in Malaysia</h1>
+      <p class="subtitle">This dashboard visualizes key drug abuse trends in Malaysia, identifying regional hotspots like Terengganu and revealing higher prevalence among Malay demographics and individuals with secondary education or less. It further tracks a significant shift toward Amphetamine Type Stimulants (ATS) in recent years, forming a clear data driven narrative to support targeted interventions.</p>
+    </header>
     <!-- end pure grid group -->
 
     <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-2">
-        <!-- <div class="description description-left">
-          <h2>Number of </h2>
-          <p>The first column contains text and the second column contains a visualisation.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. </p>
-        </div> -->
+    <section class="card">
+      <div class="description">
+        <h2>Drug Addiction Rate by State in Malaysia (2020)</h2>
+        <p>This choropleth map reveals distinct geographic patterns in drug addiction rates across Malaysia, with darker shades indicating higher prevalence, particularly in northern Peninsular Malaysia, Terengganu. These concentrations reflect cross border trafficking routes or localized socioeconomic factors. In contrast, states like Sabah, Sarawak, and Selangor show comparatively lighter shading, suggesting lower rates. By visualizing regional disparities, this map provides a spatial foundation for understanding where targeted interventions may be most needed.</p>
       </div>
-      <div class="pure-u-1-2">
+
         <div id="choropleth_map" class="vis-container"></div>
-      </div>
-    </div>
-    <!-- end pure grid group -->
+    </section>
 
-    <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-3">
-        <!-- <div class="description description-left">
-          <h2>Three Equal Columns</h2>
-          <p>Using all three columns without merging. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat
-            sed. Egestas purus viverra accumsan in nisl. Egestas purus viverra accumsan in nisl.</p>
-        </div> -->
-      </div>
-      <div class="pure-u-1-3">
-        <div id="bar_chart" class="vis-container"></div>
-      </div>
+    
 
-    </div>
+      <section class="card">
+        <div class="description">
+          <h2>Percentage of Drug Cases by Race (2016-2020)</h2>
+          <p>Shifting from geography to demographics, this grouped bar chart examines racial disparities in drug related cases over a five year period. The Malay population consistently accounts for the largest share of cases across multiple years, while Indian, Chinese, and Indigenous groups represent smaller proportions. Interactive filtering by year confirms that these relative distributions remain largely stable over time, pointing to persistent social, cultural, or economic factors that may influence drug involvement within different communities.</p>
+        </div>
+      <div id="bar_chart" class="vis-container"></div>
+      </section>
 
-    <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-3">
-        <!-- <div class="description description-left">
-          <h2>Number of </h2>
-          <p>The first column contains text and the second column contains a visualisation.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. </p>
-        </div> -->
-      </div>
-      <div class="pure-u-1-3">
+
+      <section class="card">
+        <div class="description">
+          <h2>Drug Abusers by Education Level (2016-2020)</h2>
+          <p>Educational attainment emerges as a key factor in drug abuse vulnerability. This lollipop chart clearly illustrates that individuals with secondary level qualifications (MCE/SPM/SPMV) represent the largest share of drug abusers each year, followed by those with lower secondary education (LCE/SRP/PMR) or no formal schooling. In contrast, those with higher education backgrounds comprise a small minority. The consistency of this pattern across the five year period underscores a strong correlation between limited education and increased risk of substance abuse.</p>
+        </div>
+
         <div id="lollipop_chart" class="vis-container"></div>
-      </div>
-    </div>
-    <!-- end pure grid group -->
+      </section>
 
-    <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-4">
-        <!-- <div class="description description-left">
-          <h2>Number of </h2>
-          <p>The first column contains text and the second column contains a visualisation.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Massa sapien faucibus et molestie ac feugiat sed. </p>
-        </div> -->
-      </div>
-      <div class="pure-u-1-4">
+
+
+      <section class="card">
+        <div class="description">
+          <h2 >
+            Change in Abusers by Drug Type (<span style="color:blue;">2016</span> - <span style="color:green;">2020</span>)
+          </h2>
+          <p>Shifting focus to substance preference, this connected dot plot tracks changes in drug use over time. A sharp rise in Amphetamine Type Stimulants (ATS) stands in contrast to declining use of Cannabis and Opiates, signaling a notable transition toward synthetic drugs. By linking values across time, the chart effectively highlights this transition toward chemically produced drugs, a shift that signals the need for updated policy and public health responses.</p>
+        </div>
+
         <div id="dumbell_chart" class="vis-container"></div>
-      </div>
-    </div>
+      </section>
+
     <!-- end pure grid group -->
   
   </div> <!-- end page -->

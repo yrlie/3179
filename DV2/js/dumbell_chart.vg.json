@@ -1,23 +1,23 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
+  "width": 700,
   "height": 450,
-  "title": "Change in Abusers by Drug Type (2016 → 2020)",
   "data": {
     "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_type.csv"
   },
   "transform": [
-    { "filter": "datum['Type of Drugs'] != 'Total'" }
-
+    { "filter": "datum['Type of Drugs'] != 'Total'" },
+    { "filter": "datum['Type of Drugs'] != 'Total'" },
+    { "fold": ["2016", "2020"], "as": ["Year", "Value"] }
   ],
   "layer": [
     {
         "mark": { "type": "rule", "cornerRadius": 2, "opacity": 0.9, "strokeWidth": 3 },
         "encoding": {
-          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null, "axis": {"title": null} },
-          "x": { "field": "2016", "type": "quantitative", "axis": {"title":"Count"} },
+          "y": { "field": "Type of Drugs", "type": "ordinal", "axis": {"title": "Type of Drugs"} },
+          "x": { "field": "2016", "type": "quantitative", "axis": {"title":"Number of Abusers (log scale)", "tickCount": 4}, "scale": {"type": "log", "domain": [1, 100000]} },
           "x2": { "field": "2020" },
-          "color": { "value": "#1f77b4" }, 
+          "color": { "value": "black" }, 
           "tooltip": [
             {"field":"Type of Drugs","type":"nominal","title":"Drug"},
             {"field":"2016","type":"quantitative","title":"2016","format":","},
@@ -28,22 +28,40 @@
       {
         "mark": { "type": "point", "filled": true, "size": 90 },
         "encoding": {
-          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null },
-          "x": { "field": "2016", "type": "quantitative" },
-          "shape": { "value": "circle" },
-          "color": { "value": "#1f77b4" },
-          "tooltip": null
+          "y": {"field": "Type of Drugs", "type": "ordinal"},
+          "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log"}, "axis": {"title": "Number of Abusers (log scale)"}},
+          "color": {
+            "field": "Year",
+            "type": "nominal",
+            "scale": {"domain": ["2016", "2020"], "range": ["blue", "green"]}
+          },
+          "shape": {"value": "circle"},
+          "tooltip": [
+            {"field": "Type of Drugs", "title": "Drug Type"},
+            {"field": "Year"},
+            {"field": "Value", "type": "quantitative", "format": ","}
+          ]
         }
+
       },
       {
-        "mark": { "type": "point", "filled": true, "size": 90 },
-        "encoding": {
-          "y": { "field": "Type of Drugs", "type": "ordinal", "sort": null },
-          "x": { "field": "2020", "type": "quantitative" },
-          "shape": { "value": "square" },
-          "color": { "value": "#ff7f0e" }, 
-          "tooltip": null
-        }
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "dy": -12,
+        "fontSize": 10
+      },
+      "encoding": {
+          "text": {"field": "Year"},
+          "y": {"field": "Type of Drugs", "type": "ordinal"},
+          "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log"}, "axis": {"title": "Number of Abusers (log scale)"}},
+          "tooltip": [
+            {"field": "Type of Drugs", "title": "Drug Type"},
+            {"field": "Year"},
+            {"field": "Value", "type": "quantitative", "format": ","}
+          ]
       }
+    }
     ]
 }

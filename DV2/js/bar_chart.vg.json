@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
-  "height": 400,
-  "title": "Percentage of Drug Cases by Race (2016-2020)",
+  "width": 820,
+  "height": 450,
+  "title": "",
   "data": {
     "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_race.csv"
   },
@@ -59,7 +59,7 @@
       "field": "Race",
       "type": "nominal",
       "title": "Race",
-      "axis": {"labelAngle": -25}
+      "axis": {"labelAngle": 0}
     },
     "y": {
       "field": "Percentage",
