@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 700,
-  "height": 450,
+  "width": 650,
+  "height": 340,
   "data": {
     "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_type.csv"
   },
@@ -14,32 +14,72 @@
     {
         "mark": { "type": "rule", "cornerRadius": 2, "opacity": 0.9, "strokeWidth": 3 },
         "encoding": {
-          "y": { "field": "Type of Drugs", "type": "ordinal", "axis": {"title": "Type of Drugs"} },
+          "y": {
+            "field": "Type of Drugs",
+            "type": "ordinal",
+            "axis": {
+              "title": "Type of Drugs",
+              "labelExpr": "split(datum.label, ' ', 3)",
+              "labelFontSize": 11,
+              "labelPadding": 4,
+              "labelLimit": 300,
+              "labelAlign": "right"
+            }
+          },
+          "config": {
+            "axisY": {"labelPadding": 2, "labelAlign": "right", "labelBaseline": "middle"},
+            "view": {"stroke": null}
+          },
           "x": { "field": "2016", "type": "quantitative", "axis": {"title":"Number of Abusers (log scale)", "tickCount": 4}, "scale": {"type": "log", "domain": [1, 100000]} },
-          "x2": { "field": "2020" },
+          "x2": { "field": "2020", "type": "quantitative", "scale": {"type": "log", "domain": [1, 100000]} },
           "color": { "value": "black" }, 
           "tooltip": [
-            {"field":"Type of Drugs","type":"nominal","title":"Drug"},
-            {"field":"2016","type":"quantitative","title":"2016","format":","},
-            {"field":"2020","type":"quantitative","title":"2020","format":","}
+            {"field":"Type of Drugs","type":"nominal","title":"Drug Type"},
+            {"field":"2016","type":"quantitative","title":"Year 2016","format":","},
+            {"field":"2020","type":"quantitative","title":"Year 2020","format":","}
           ]
         }
       },
       {
         "mark": { "type": "point", "filled": true, "size": 90 },
         "encoding": {
-          "y": {"field": "Type of Drugs", "type": "ordinal"},
-          "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log"}, "axis": {"title": "Number of Abusers (log scale)"}},
+          "y": {
+            "field": "Type of Drugs",
+            "type": "ordinal",
+            "axis": {
+              "title": "Type of Drugs",
+              "labelExpr": "split(datum.label, '-')",
+              "labelFontSize": 11,
+              "labelPadding": 4,
+              "labelLimit": 300,
+              "labelAlign": "right"
+            }
+          },
+          "config": {
+            "axisY": {"labelPadding": 2, "labelAlign": "right", "labelBaseline": "middle"},
+            "view": {"stroke": null}
+          },
+          "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log", "domain": [1, 100000], "nice": true}, "axis": {"title": "Number of Abusers (log scale)"}},
           "color": {
             "field": "Year",
             "type": "nominal",
-            "scale": {"domain": ["2016", "2020"], "range": ["blue", "green"]}
+            "scale": {"domain": ["2016", "2020"], "range": ["blue", "green"]},
+            "legend": {
+              "orient": "none",
+              "direction": "vertical",
+              "title": "Year",
+              "padding": 4,
+              "cornerRadius": 5,
+              "offset": -20,
+              "legendX": 580,     
+              "legendY": 5 
+            }
           },
           "shape": {"value": "circle"},
           "tooltip": [
             {"field": "Type of Drugs", "title": "Drug Type"},
             {"field": "Year"},
-            {"field": "Value", "type": "quantitative", "format": ","}
+            {"field": "Value", "type": "quantitative", "format": ",", "title": "Number of Abusers"}
           ]
         }
 
@@ -49,12 +89,67 @@
         "type": "text",
         "align": "center",
         "baseline": "middle",
+        "dy": 12,
+        "fontSize": 10
+      },
+      "transform": [
+        {"filter": "datum.Year == '2016'"}
+      ],
+      "encoding": {
+          "text": {"field": "Year"},
+          "y": {
+            "field": "Type of Drugs",
+            "type": "ordinal",
+            "axis": {
+              "title": "Type of Drugs",
+              "labelExpr": "split(datum.label, '-')",
+              "labelFontSize": 11,
+              "labelPadding": 4,
+              "labelLimit": 300,
+              "labelAlign": "right"
+            }
+          },
+          "config": {
+            "axisY": {"labelPadding": 2, "labelAlign": "right", "labelBaseline": "middle"},
+            "view": {"stroke": null}
+          },
+          "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log"}, "axis": {"title": "Number of Abusers (log scale)"}},
+          "tooltip": [
+            {"field": "Type of Drugs", "title": "Drug Type"},
+            {"field": "Year"},
+            {"field": "Value", "type": "quantitative", "format": ","}
+          ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
         "dy": -12,
         "fontSize": 10
       },
+      "transform": [
+        {"filter": "datum.Year == '2020'"}
+      ],
       "encoding": {
           "text": {"field": "Year"},
-          "y": {"field": "Type of Drugs", "type": "ordinal"},
+          "y": {
+            "field": "Type of Drugs",
+            "type": "ordinal",
+            "axis": {
+              "title": "Type of Drugs",
+              "labelExpr": "split(datum.label, '-')",
+              "labelFontSize": 11,
+              "labelPadding": 4,
+              "labelLimit": 300,
+              "labelAlign": "right"
+            }
+          },
+          "config": {
+            "axisY": {"labelPadding": 2, "labelAlign": "right", "labelBaseline": "middle"},
+            "view": {"stroke": null}
+          },
           "x": {"field": "Value", "type": "quantitative", "scale": {"type": "log"}, "axis": {"title": "Number of Abusers (log scale)"}},
           "tooltip": [
             {"field": "Type of Drugs", "title": "Drug Type"},

@@ -15,75 +15,146 @@
 
 </head>
 <body>
-  <div class="page">
+  <div class="outer-wrap">
+    <div class="page">
 
-    <!-- pure grid group -->
-    <header class="dashboard-header">
-      <h1>Drug Abuse in Malaysia</h1>
-      <p class="subtitle">This dashboard visualizes key drug abuse trends in Malaysia, identifying regional hotspots like Terengganu and revealing higher prevalence among Malay demographics and individuals with secondary education or less. It further tracks a significant shift toward Amphetamine Type Stimulants (ATS) in recent years, forming a clear data driven narrative to support targeted interventions.</p>
-    </header>
-    <!-- end pure grid group -->
+      <header class="top" role="banner">
+        <h1 class="title">Drug Abuse in Malaysia (2016 - 2020)</h1>
+        <p class="one-line">Tracking state, race, education, and drug type patterns.</p>
+      </header>
 
-    <!-- pure grid group -->
-    <section class="card">
-      <div class="description">
-        <h2>Drug Addiction Rate by State in Malaysia (2020)</h2>
-        <p>This choropleth map reveals distinct geographic patterns in drug addiction rates across Malaysia, with darker shades indicating higher prevalence, particularly in northern Peninsular Malaysia, Terengganu. These concentrations reflect cross border trafficking routes or localized socioeconomic factors. In contrast, states like Sabah, Sarawak, and Selangor show comparatively lighter shading, suggesting lower rates. By visualizing regional disparities, this map provides a spatial foundation for understanding where targeted interventions may be most needed.</p>
+      <!-- ROW 1: MAP -->
+      <div class="row">
+        <aside class="panel-left left-1" aria-label="map annotation">
+          <h3 class="card-heading">🗺️ Geographic focus</h3>
+          <div class="caption">Where is prevalence highest?</div>
+          <p class="desc"><span class="em">Terengganu</span> and northern states show highest rates per 100k.</p>
+          <p class="desc"><strong>Why it matters:</strong> Targeted interventions here improve regional outcomes.</p>
+          <div class="badge-box"><div class="badge">Choropleth</div><div class="badge">Per 100k</div><div class="badge">Graticule</div></div>
+        </aside>
+
+        <section class="panel-right" aria-label="choropleth map">
+          <h3>Drug Addiction Rate by State (2020)</h3>
+          <div id="choropleth_map" class="vis-container"></div>
+        </section>
       </div>
 
-        <div id="choropleth_map" class="vis-container"></div>
-    </section>
+      <!-- ROW 2: RACE -->
+      <div class="row">
+        <aside class="panel-left left-2">
+          <h3 class="card-heading">👥 Demographics</h3>
+          <div class="caption">Which race is most affected?</div>
+          <p class="desc">The <span class="em">Malay</span> population consistently accounts for the largest share.</p>
+          <div class="badge-box"><div class="badge">Stacked Area</div><div class="badge">2016 - 2020</div></div>
+        </aside>
 
-    
+        <section class="panel-right">
+          <h3>Number of Drug Cases by Race (2016 - 2020)</h3>
+          <div id="stack_area_chart" class="vis-container"></div>
+        </section>
+      </div>
 
-      <section class="card">
-        <div class="description">
-          <h2>Percentage of Drug Cases by Race (2016-2020)</h2>
-          <p>Shifting from geography to demographics, this grouped bar chart examines racial disparities in drug related cases over a five year period. The Malay population consistently accounts for the largest share of cases across multiple years, while Indian, Chinese, and Indigenous groups represent smaller proportions. Interactive filtering by year confirms that these relative distributions remain largely stable over time, pointing to persistent social, cultural, or economic factors that may influence drug involvement within different communities.</p>
+      <!-- ROW 3: EDUCATION -->
+      <div class="row">
+        <aside class="panel-left left-2">
+          <h3 class="card-heading">🎓 Education</h3>
+          <div class="caption">Does schooling correlate?</div>
+          <p class="desc"><span class="em">Secondary</span> or lower education groups form the largest share.</p>
+          <div class="badge-box"><div class="badge">Lollipop</div><div class="badge">Policy insight</div></div>
+        </aside>
+
+        <section class="panel-right">
+          <div class="slider-container">
+            <label for="yearSlider" class="slider-label">
+              Select Year: <span id="yearValue" class="slider-value">2020</span>
+            </label>
+            <input type="range" id="yearSlider" class="slider-input"
+                  min="2016" max="2020" step="1" value="2020" />
+          </div>
+          <h3>Drug Abusers by Education Level (2016 - 2020)</h3>
+          <div id="lollipop_chart" class="vis-container"></div>
+        </section>
+      </div>
+
+      <!-- ROW 4: OCCUPATION -->
+      <div class="row">
+        <aside class="panel-left left-4">
+          <h3 class="card-heading">💼 Occupation</h3>
+          <div class="caption">Which job sectors are most vulnerable?</div>
+          <p class="desc">Workers in <span class="em">casual</span> and <span class="em">general labour</span> roles report the highest number of drug abuse cases across all years.</p>
+          <p class="desc"><strong>Why it matters:</strong> Targeted workplace prevention and support programs can reduce relapse risk.</p>
+          <div class="badge-box">
+            <div class="badge">Heatmap</div>
+            <div class="badge">2016 - 2020</div>
+            <div class="badge">Custom Color Scale</div>
+          </div>
+        </aside>
+
+        <section class="panel-right">
+          <h3>Drug Abuse Cases by Occupation (2016 - 2020)</h3>
+          <div id="heatmap" class="vis-container"></div>
+        </section>
+      </div>
+
+
+      <!-- ROW 5: DRUG TYPE -->
+      <div class="row">
+        <aside class="panel-left left-3">
+          <h3 class="card-heading">💊 Drug type shift</h3>
+          <div class="caption">Which drugs are rising?</div>
+          <p class="desc"><span class="em">ATS</span> shows a marked increase versus Methamphetamine (Crystalline) and Methamphetamine (Tablet).</p>
+          <div class="note-text">
+            <strong>Note:</strong><br>
+            - Opiates: Opium, Heroin, Morphine and Codeine
+            - Methamphetamine (Crystalline): Syabu, Ice and Batu<br>
+            - Methamphetamine (Tablet): Kuda, YABA, YAMA and Bomb Pills<br>
+            - Cannabis: Cannabis, Hashish and Marijuana<br>
+            - ATS: Ecstasy and Amphetamine<br>
+            - Psychotropic pills: Benzodiazepine, Erimin 5, APO 5 and Dormicum<br>
+            - Others: Kratom leaves, Cocaine, Ketamine, Depressants, Dissociative, Hallucinogen, Inhalants etc.<br>
+          </div>
+          <div class="badge-box"><div class="badge">Dumbbell</div><div class="badge">2016 - 2020</div></div>
+          
+        </aside>
+
+        <section class="panel-right">
+          <h3>Change in Abusers by Drug Type (<span style="color:blue;">2016</span> - <span style="color:green;">2020</span>)</h3>
+          <div id="dumbell_chart" class="vis-container"></div>
+        </section>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="meta" role="contentinfo">
+        <div class="meta-left">
+          <div class="meta-item"><strong>Author:</strong> Liew Yun Ru<br>
+            <strong>Date:</strong> 21/10/2025<br>
+            <strong>Data Source:</strong><br>
+            Topojson source: <a href="https://raw.githubusercontent.com/jnewbery/CartogramMalaysia/9ac25c828e0306dfa2c2869f98eb2b357da69764/public/data/malaysia-states.topojson" target="_blank" rel="noopener">Malaysia-states.topojson</a> <br>
+            Population of State: <a href="https://www.citypopulation.de/en/malaysia/admin/" target="_blank" rel="noopener">citypopulation.de</a><br>
+            Number of Drug Addicts by State: <a href="https://archive.data.gov.my/data/dataset/number-of-drug-addicts-by-state-malaysia" target="_blank" rel="noopener">Archive Data.gov.my</a><br>
+            All other data: <a href="https://www.aadk.gov.my/wp-content/uploads/BMD_ENGLISH_final.pdf" target="_blank" rel="noopener">Information On Drugs 2020 (AADK)</a>
+          </div>
         </div>
-      <div id="bar_chart" class="vis-container"></div>
-      </section>
+      </footer>
 
+    </div>
+  </div>
 
-      <section class="card">
-        <div class="description">
-          <h2>Drug Abusers by Education Level (2016-2020)</h2>
-          <p>Educational attainment emerges as a key factor in drug abuse vulnerability. This lollipop chart clearly illustrates that individuals with secondary level qualifications (MCE/SPM/SPMV) represent the largest share of drug abusers each year, followed by those with lower secondary education (LCE/SRP/PMR) or no formal schooling. In contrast, those with higher education backgrounds comprise a small minority. The consistency of this pattern across the five year period underscores a strong correlation between limited education and increased risk of substance abuse.</p>
-        </div>
-
-        <div id="lollipop_chart" class="vis-container"></div>
-      </section>
-
-
-
-      <section class="card">
-        <div class="description">
-          <h2 >
-            Change in Abusers by Drug Type (<span style="color:blue;">2016</span> - <span style="color:green;">2020</span>)
-          </h2>
-          <p>Shifting focus to substance preference, this connected dot plot tracks changes in drug use over time. A sharp rise in Amphetamine Type Stimulants (ATS) stands in contrast to declining use of Cannabis and Opiates, signaling a notable transition toward synthetic drugs. By linking values across time, the chart effectively highlights this transition toward chemically produced drugs, a shift that signals the need for updated policy and public health responses.</p>
-        </div>
-
-        <div id="dumbell_chart" class="vis-container"></div>
-      </section>
-
-    <!-- end pure grid group -->
-  
-  </div> <!-- end page -->
 
   <script type="text/javascript">
 
     var vg1 = "js/choropleth_map.vg.json";
-    var vg2 = "js/bar_chart.vg.json";
+    var vg2 = "js/stack_area_chart.vg.json";
     var vg3 = "js/lollipop_chart.vg.json";
     var vg4 = "js/dumbell_chart.vg.json";
+    var vg5 = "js/heatmap.vg.json";
 
     vegaEmbed('#choropleth_map', vg1, 
       { "actions": false }
     ).then(function(result) {
     }).catch(console.error);
 
-    vegaEmbed('#bar_chart', vg2,
+    vegaEmbed('#stack_area_chart', vg2,
       { "actions": false }
     ).then(function(result) {
     }).catch(console.error);
@@ -93,10 +164,23 @@
     ).then(function(result) {
     }).catch(console.error);
 
+    vegaEmbed('#heatmap', vg5,
+      { "actions": false }
+    ).then(function(result) {
+    }).catch(console.error);
+
     vegaEmbed('#dumbell_chart', vg4,
       { "actions": false }
     ).then(function(result) {
     }).catch(console.error);
+
+    document.getElementById('yearSlider').addEventListener('input', function(evt) {
+    document.getElementById('yearValue').textContent = evt.target.value;
+    });
+
+    document.getElementById('yearSlider1').addEventListener('input', function(evt) {
+      document.getElementById('yearValue1').textContent = evt.target.value;
+    });
 
   </script>
 

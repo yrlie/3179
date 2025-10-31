@@ -1,0 +1,145 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 337,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_race.csv"
+  },
+  "transform": [
+    {"filter": "datum.Race != 'Total'"},
+    {"fold": ["2016","2017","2018","2019","2020"], "as": ["Year", "Value"]},
+    {"calculate": "toNumber(datum.Value)", "as": "ValueNum"},
+    {
+      "joinaggregate": [{"op": "sum","field": "ValueNum","as": "YearTotal"}],
+      "groupby": ["Year"]
+    },
+    {"calculate": "datum.ValueNum / datum.YearTotal * 100", "as": "Percentage"},
+    {"calculate": "toNumber(datum.Year)", "as": "YearNum"},
+    {
+      "joinaggregate": [{"op": "sum","field": "ValueNum","as": "TotalPerRace"}],
+      "groupby": ["Race"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "axis": {"title": "Year", "labelAngle": 0, "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "y": {
+      "field": "ValueNum",
+      "type": "quantitative",
+      "stack": "zero",
+      "axis": {"title": "Number of Drug Cases", "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "color": {
+      "field": "Race",
+      "type": "nominal",
+      "scale": {"scheme": "category10"},
+      "legend": {"title": "Race", "orient": "right", "labelFontSize": 11, "titleFontSize": 12}
+    },
+    "order": {"field": "TotalPerRace","type": "quantitative","sort": "descending"},
+    "tooltip": [
+      {"field": "Race"},
+      {"field": "Year"},
+      {"field": "ValueNum","title": "Number of Drug Cases","format": ","},
+      {"field": "Percentage","title": "Percentage of Year","format": ".2f"}
+    ]
+  },
+  "layer": [
+    {"mark": {"type": "area", "interpolate": "monotone"}},
+    {"mark": {"type": "line", "interpolate": "monotone", "strokeWidth": 0.6, "opacity": 0.6}},
+    {  
+      "transform": [
+        {"joinaggregate": [{"op": "sum","field": "ValueNum","as": "TotalByYear"}],"groupby": ["Year"]},
+        {"joinaggregate": [{"op": "max","field": "TotalByYear","as": "maxTotal"}]},
+        {"filter": "datum.TotalByYear == datum.maxTotal"}
+      ],
+      "mark": {
+        "type": "rule",
+        "stroke": "black",
+        "strokeWidth": 1.2,
+        "strokeDash": [4,4]
+      },
+      "encoding": {
+        "x": {"field": "Year"},
+        "y": {"value": 0},
+        "y2": {"value": 337}
+      }
+    },
+{
+      "data": {
+        "values": [
+          {
+            "Race": "Malay",
+            "x1": "2020",
+            "x2": "2020",
+            "y1": 12000,
+            "y2": 12000
+          },
+          {
+            "Race": "Indian",
+            "x1": "2020",
+            "x2": "2020",
+            "y1": 5500,
+            "y2": 5200
+          },
+          {
+            "Race": "Chinese",
+            "x1": "2020",
+            "x2": "2020",
+            "y1": 1200,
+            "y2": 1200
+          },
+          {
+            "Race": "Sabah Indigenous",
+            "x1": "2020",
+            "x2": "2020",
+            "y1": 1100,
+            "y2": 1100
+          },
+          {       
+            "Race": "Sarawak Indigenous",
+            "x1": "2018",
+            "x2": "2018",
+            "y1": 24700,
+            "y2": 28000
+          },
+          {
+            "Race": "Others",
+            "x1": "2019",
+            "x2": "2019",
+            "y1": 25600,
+            "y2": 29000
+          }
+        ]
+      },
+      "layer": [
+        {
+          "mark": {"type": "rule", "stroke": "black", "strokeWidth": 0.8, "opacity": 0.7},
+          "encoding": {
+            "x": {"field": "x1", "type": "ordinal"},
+            "x2": {"field": "x2"},
+            "y": {"field": "y1", "type": "quantitative"},
+            "y2": {"field": "y2", "type": "quantitative"},
+            "tooltip": [
+              {"field": "Race"}
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 10},
+          "encoding": {
+            "x": {"field": "x2"},
+            "y": {"field": "y2", "type": "quantitative"},
+            "text": {"field": "Race"},
+            "color": {"value": "black"},
+            "tooltip": [
+              {"field": "Race"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

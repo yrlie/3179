@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 606,
+  "height": 343,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_occupation.csv"  
+  },
+  "transform": [
+    {"fold": ["2016", "2017", "2018", "2019", "2020"], "as": ["Year", "Value"]},
+    {"calculate": "toNumber(datum.Value)", "as": "ValueNum"},
+    {
+      "joinaggregate": [{"op": "sum", "field": "ValueNum", "as": "YearTotal"}],
+      "groupby": ["Year"]
+    },
+    {
+      "calculate": "datum.ValueNum / datum.YearTotal * 100",
+      "as": "Percentage"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {"labelAngle": 0}
+    },
+    "y": {
+      "field": "Occupation Category",
+      "type": "nominal",
+      "title": "Occupation Category",
+      "sort": "-x"
+    },
+    "color": {
+      "field": "Percentage",
+      "type": "quantitative",
+      "title": "Share of Total Drug Cases (log scale)",
+      "scale": {
+        "type": "log",
+        "scheme": "orangered"
+      },
+      "legend": {
+        "title": ["Share of", "Total Drug", "Cases (log", "scale)"],
+        "columns": 1,
+        "titleFontSize": 12,
+        "labelFontSize": 11,
+        "gradientLength": 150,
+        "gradientThickness": 15,
+        "symbolSize": 40,
+        "orient": "right",
+        "direction": "vertical"
+        }
+    },
+    "tooltip": [
+      {"field": "Occupation Category", "type": "nominal"},
+      {"field": "Year", "type": "ordinal"},
+      {"field": "ValueNum", "type": "quantitative", "format": ",", "title": "Number of Drug Cases"},
+      {"field": "Percentage", "type": "quantitative", "format": ".2f", "title": "Percentage of Total Drug Cases (%)"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "rect"}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+         "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {"field": "Percentage", "type": "quantitative", "format": ".2f"},
+        "color": {"value": "black"}
+      }
+    }
+  ]
+}

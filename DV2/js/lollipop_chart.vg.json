@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 770,
-  "height": 450,
+  "width": 635,
+  "height": 340,
   "data": {
     "url": "https://raw.githubusercontent.com/yrlie/3179/main/DV2/data/number_addicts_by_education.csv"
   },
@@ -10,10 +10,7 @@
       "name": "Year_Selection",
       "value": "2020",
       "bind": {
-        "input": "range",
-        "min": 2016,
-        "max": 2020,
-        "step": 1,
+        "element": "#yearSlider",
         "name": "Select Year: "
       }
     }
@@ -56,16 +53,8 @@
       "type": "ordinal",
       "axis": {"tickCount": 4}, 
       "scale": {"type": "linear", "domain": [0, 40]}
-    }
-  },
-  "layer": [
-    {
-        "mark": { "type": "rule", "strokeWidth": 2 },
-        "encoding": {
-          "x": { "field": "Percentage", "type": "quantitative", "axis": {"title":"Percentage of Abusers by Education Level (%)", "format":".2f"} },
-          "x2": { "value": 0 },
-          "y": { "field": "Education", "type": "ordinal", "sort": "-x", "axis": {"title": "Education Level"} },
-          "tooltip": [
+    },
+    "tooltip": [
             {
               "field":"Education",
               "type":"nominal",
@@ -79,9 +68,17 @@
             {
               "field":"pct_round",
               "type":"quantitative",
-              "title":"Percentage of Total (%)",
+              "title":"Percentage of Total Abusers (%)",
               "format":".2f"}
           ]
+  },
+  "layer": [
+    {
+        "mark": { "type": "rule", "strokeWidth": 2 },
+        "encoding": {
+          "x": { "field": "Percentage", "type": "quantitative", "axis": {"title":"Percentage of Total Abusers by Education Level (%)"} },
+          "x2": { "value": 0 },
+          "y": { "field": "Education", "type": "ordinal", "sort": "-x", "axis": {"title": "Education Level"} }
         }
       },
       {
@@ -89,50 +86,17 @@
         "encoding": {
           "x": { "field": "Percentage", "type": "quantitative" },
           "y": { "field": "Education", "type": "ordinal", "sort": "-x" },
-          "color": { "value": "blue" },
-          "tooltip": [
-            {
-              "field":"Education",
-              "type":"nominal",
-              "title":"Education Level"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-            },
-            {
-              "field":"ValueNum",
-              "type":"quantitative",
-              "title":"Number of Abusers",
-              "format":","},
-            {
-              "field":"pct_round",
-              "type":"quantitative",
-              "title":"Percentage of Total (%)",
-              "format":".2f"}
-          ]
+          "color": { "value": "blue" }
         }
       },
       {
-        "mark": { "type": "text", "align": "left", "dx": 6, "fontSize": 11 },
+        "mark": { "type": "text", "dy": -13, "dx": 4.5, "fontSize": 11 },
         "encoding": {
           "x": { "field": "Percentage", "type": "quantitative" },
           "y": { "field": "Education", "type": "ordinal", "sort": "-x" },
           "text": { "field": "pct_round", "type": "quantitative", "format": ".2f"},
-          "opacity": {"value": 0.9},
-          "tooltip": [
-            {
-              "field":"Education",
-              "type":"nominal",
-              "title":"Education Level"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-            },
-            {
-              "field":"ValueNum",
-              "type":"quantitative",
-              "title":"Number of Abusers",
-              "format":","},
-            {
-              "field":"pct_round",
-              "type":"quantitative",
-              "title":"Percentage of Total (%)",
-              "format":".2f"}
-          ]
+          "opacity": {"value": 0.9}
+        
         }
       }
     ]
